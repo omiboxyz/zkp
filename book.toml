@@ -1,0 +1,6 @@
+[book]
+authors = ["Omid Bodaghi"]
+language = "en"
+multilingual = false
+src = "src"
+title = "My notes on zkp"
