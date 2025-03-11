@@ -4,3 +4,8 @@ language = "en"
 multilingual = false
 src = "src"
 title = "My notes on zkp"
+
+[output.html]
+mathjax-support = true
+
+[preprocessor.katex]
