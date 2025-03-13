@@ -63,7 +63,7 @@ and the verifier can compute $X^k - 1$ in $\mathcal{O}(\log k)$ time (e.g., by r
    If this holds, the verifier accepts; otherwise, it rejects.
 
 ### Informal Security Proof
-- **Completeness**: If the prover follows the protocol honestly and $f(X)$ truly vanishes on $\Omega$, then there is a valid $q(X)$ of degree at most $d$ such that $f(X) = q(X)\,Z_{\Omega}(X)$ for all $X$. Hence, for any challenge $r$, $f(r) = q(r)\,Z_{\Omega}(r),$ and the verifier accepts.
+- **Completeness**: If the prover follows the protocol honestly and $f(X)$ truly vanishes on $\Omega$, then there is a valid $q(X)$ of degree at most $\deg(f) - \deg(Z) = d - k$ such that $f(X) = q(X)\,Z_{\Omega}(X)$ for all $X$. Hence, for any challenge $r$, $f(r) = q(r)\,Z_{\Omega}(r),$ and the verifier accepts.
 
 - **Soundness**: We show that a malicious prover cannot fool the verifier into accepting unless $f(X)$ actually vanishes on $\Omega$. The main cases are:
    1. **Secure Commitment Scheme**: We assume the commitment scheme is secure, so a malicious prover cannot cheat when revealing $f(r)$ or $q(r)$ in Step 3.
@@ -72,7 +72,7 @@ and the verifier can compute $X^k - 1$ in $\mathcal{O}(\log k)$ time (e.g., by r
    f(X) = q'(X)\,Z_{\Omega}(X),
    $$
    so $Z_{\Omega}(X)$ does indeed divide $f(X)$. Thus $f(X)$ is zero on $\Omega$, no matter what the correct quitionet is, whether $q$ or $q'$.
-   3. **$f(X)$ Not Zero on $\Omega$**: Suppose $f(X)$ does *not* vanish on $\Omega$. Then there is no polynomial $q(X)$ of degree at most $d$ for which 
+   3. **$f(X)$ Not Zero on $\Omega$**: Suppose $f(X)$ does *not* vanish on $\Omega$. Then there is no polynomial $q(X)$ of degree at most $d - k$ for which 
       $$
       f(X) = q(X)\,Z_{\Omega}(X).
       $$
@@ -89,6 +89,8 @@ and the verifier can compute $X^k - 1$ in $\mathcal{O}(\log k)$ time (e.g., by r
       f(r) \stackrel{?}{=} q(r)\,Z_{\Omega}(r)
       $$
       will fail, and the verifier will reject.
+
+      Since $\deg(R) \le \deg(q) \le d-k$, the protocol is sound, assuming $(d-k)/p$ is negligible.
 
 ## Time and Size Complexity
 Let $|\mathbb{F}_p|, d, k$ denote the field size, the degree of $f(X)$, and the size of $\Omega$ (respectively the degree of the vanishing polynomial $Z_\Omega(X)$).
