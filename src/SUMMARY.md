@@ -13,5 +13,5 @@
 - [Proof Gadgets](./02_plonk/03_proof_gadgets.md)
     - [Zero Test](./02_plonk/04_zero_test.md)
     - [Product Check](./02_plonk/05_prod_test.md)
-    - [Permutation Check]()
+    - [Permutation Check](./02_plonk/06_permute_test.md)
     - [Prescribed Permutation Check]()
