@@ -1,31 +1,28 @@
 # Product Test
-
-Product test is a task where a prover $\mathcal{P}$, knowing a polynomial function $f(X) \in \mathbb{F}^{(\leq d)}[X]$, tries to convince a verifier $\mathcal{V}$, who holds a commitment $\text{com}_f$ to $f$, that
+In the Product Test, a prover $\mathcal{P}$, who knows a polynomial function 
+$$
+f(X) \in \mathbb{F}^{(\leq d)}[X],
+$$
+tries to convince a verifier $\mathcal{V}$, who has oracle access or commitment to $f$ (denoted by $ \boxed{f}$), that
 $$
 \prod_{a \in \Omega} f(a) = 1,
 $$
-where $\Omega \subseteq \mathbb{F}_p$ and $|\Omega| = k$.
+where $ \Omega \subseteq \mathbb{F}_p $ and $ |\Omega| = k $. (The definition of $ \Omega $ is provided in the previous section.)
 
 ---
-A naive verifier strategy might be:
 
-1. **Individual proofs**: The verifier queries the prover for $f(a)$ for each $a \in \Omega$. This results in $\mathcal{O}(k)$ proof openings and $\mathcal{O}(k)$ verification operations. Finally, the verifier multiplies all values to check if their product is $1$.
+A naive try by the verifier would be:
+1. **Individual Queries**: The verifier queries the oracle for each $ a \in \Omega $. This results in $ \mathcal{O}(k) $ queries and a corresponding verification time of $ \mathcal{O}(k) $.
 
-Our goal is to design a protocol where the prover can convince the verifier of
-$$
-\prod_{a \in \Omega} f(a) = 1
-$$
-using a *constant-size* proof (independent of $k $ aside from the baseline commitment scheme costs) and a *logarithmic* verifier runtime (rather than $\mathcal{O}(k) $).
+However, our goal is to achieve a constant number of queries (i.e., $ \mathcal{O}(1) $, independent of $ k $ and $ d $) and logarithmic verification time (i.e., $ \mathcal{O}(\log k) $).
 
 We use the same set $\Omega$ from the zero test, i.e.,
 $$
 \Omega = \{1, w, w^2, \dots, w^{k-1}\},
 $$
-
 where $w$ is a primitive $k$th root of unity in $\mathbb{F}_p$.
 
 ---
-
 ## Auxiliary Polynomial $t(X)$
 
 We define a polynomial $t(X)$ such that
@@ -113,7 +110,7 @@ Thus, to show this relationship, the prover’s goal boils down to proving:
     t(wX) - t(X)\,f(wX) = 0 \quad \forall\, X \in \Omega,
     $$
     such a $q(X)$ exists.
-    The prover sends a *commitment* to $q$ and $t$ (denoted $\text{com}_q$, $\text{com}_t$) to the verifier.
+    The prover sends a *commitment* to $q$ and $t$ (denoted $\boxed{q}$, $\boxed{t}$) to the verifier.
 
 2. The verifier samples a random challenge $r \in \mathbb{F}_p$ (a public-coin protocol) and sends $r$ to the prover.
 
@@ -135,7 +132,7 @@ Thus, to show this relationship, the prover’s goal boils down to proving:
 ### Informal Security Proof
 - **Completeness**: If the prover follows the protocol honestly and $t(wX) - t(X)\,f(wX)$
   truly vanishes on $\Omega$, then there is a valid $q(X)$ of degree at most 
-  $(\deg(t) + \deg(f) - \deg(Z_{\Omega})) = (k-1) + d - k = d - 1,$  
+  $$\deg(q) \le \deg(t) + \deg(f) - \deg(Z_{\Omega}) = (k-1) + d - k = d - 1,$$  
   such that
   $$
   t(wX) - t(X)\,f(wX) \;=\; q(X)\,Z_{\Omega}(X) 
@@ -143,56 +140,43 @@ Thus, to show this relationship, the prover’s goal boils down to proving:
   $$
   Therefore, for any challenge $r$,
   $$
-  t(wr) - t(r)\,f(wr) \;=\; q(r)\,\bigl(Z_{\Omega}(r)\bigr),
+  t(wr) - t(r)\,f(wr) \;=\; q(r)\,Z_{\Omega}(r),
   $$
   and the verifier’s checks succeed.
 
-- **Soundness**:A malicious prover cannot fool the verifier unless 
+- **Soundness**: A malicious prover cannot fool the verifier unless 
   $$
   t(wX) - t(X)\,f(wX) = 0 \quad \forall\,X \in \Omega
   \quad\text{and}\quad
   t(w^{k-1}) = 1.
   $$
   The main cases are:
-   1. **Secure Commitment Scheme**: We assume the commitment scheme is secure, so a malicious prover cannot cheat when revealing $f(wr),\,t(r),\,t(wr),\,t(w^{k-1}),\,q(r)$ in Step 3.
-   2. **Incorrect $q(X)$ or $t(X)$**: Suppose the product check really holds and the prover sends malicious polynomials $t'(X)$ or $q'(X)$. If the verifier’s checks pass for a random challenge $r$,
-     $$
-     t'(wr) - t'(r)\,f(wr) 
-     = 
-     q'(r)\,Z_{\Omega}(r),
-     $$
-     it implies 
-     $$
-     t'(wX) - t'(X)\,f(wX) 
-     =
-     q'(X)\,Z_{\Omega}(X)
-     \quad\Longrightarrow\quad
-     t'(wX) = t'(X)\,f(wX),
-     $$
-     holding for all $X \in \Omega$. Thus the relationship is indeed satisfied.
-   3. **Product check does not hold**: Suppose $\prod_{a \in \Omega} f(a) \;\neq\; 1.$
-     Then $t(wX) - t(X)\,f(wX)$ does *not* vanish on $\Omega$ (i.e., no polynomial $q(X)$ of degree $\le d - 1$ can factor out $Z_{\Omega}(X)$ from this difference). Formally, we could write
-     $$
-     t(wX) - t(X)\,f(wX) 
-     =
-     q(X)\,Z_{\Omega}(X) \;+\; R(X),
-     $$
-     where $R(X)$ is a nonzero remainder polynomial. Since a nonzero polynomial of degree $\deg(R)$ over $\mathbb{F}_p$ has at most $\deg(R)$ roots, picking a random $r \in \mathbb{F}_p$ means
-     $$
-     \Pr\bigl(R(r) = 0\bigr) 
-     \;\le\; 
-     \frac{\deg(R)}{\lvert\mathbb{F}_p\rvert}.
-     $$
-     Hence, except with negligible probability, the verifier’s check 
-     $$
-     t(wr) - t(r)\,f(wr) \;\stackrel{?}{=}\; q(r)\,\bigl(Z_{\Omega}(r)\bigr)
-     $$
-     fails, and the verifier rejects.
+   1. We assume the commitment scheme is secure, so a malicious prover cannot cheat when revealing $f(wr),\,t(r),\,t(wr),\,t(w^{k-1}),\,q(r)$ in Step 3.
+   2. Suppose $\prod_{a \in \Omega} f(a) \;\neq\; 1.$
+    Then $t(wX) - t(X)\,f(wX)$ does *not* vanish on $\Omega$ (i.e., no polynomial $q(X)$ of degree $\le d - 1$ can factor out $Z_{\Omega}(X)$ from this difference). Formally, we could write
+    $$
+    t(wX) - t(X)\,f(wX) 
+    =
+    q(X)\,Z_{\Omega}(X) \;+\; R(X),
+    $$
+    where $R(X)$ is a nonzero remainder polynomial. Since a nonzero polynomial of degree $\deg(R)$ over $\mathbb{F}_p$ has at most $\deg(R)$ roots, picking a random $r \in \mathbb{F}_p$ means
+    $$
+    \Pr\bigl(R(r) = 0\bigr) 
+    \;\le\; 
+    \frac{\deg(R)}{\lvert\mathbb{F}_p\rvert}.
+    $$
+    Hence, except with negligible probability, the verifier’s check 
+    $$
+    t(wr) - t(r)\,f(wr) \;\stackrel{?}{=}\; q(r)\,\bigl(Z_{\Omega}(r)\bigr)
+    $$
+    fails, and the verifier rejects.
 
 	 Since $\deg(R) \le \deg(q) \le d - 1$, the protocol is sound, assuming $(d - 1)/p$ is negligible.
 
+---
+
 ## Time and Size Complexity
-Let $|\mathbb{F}_p|,\; d,\; k$ denote the field size, the degree of $f(X)$, and the size of $\Omega$ (respectively the degree of the vanishing polynomial $Z_{\Omega}(X)$).
+Let $p,\; d,\; k$ denote the field size, the degree of $f(X)$, and the size of $\Omega$ (respectively the degree of the vanishing polynomial $Z_{\Omega}(X)$).
 
 
 1. **Prover**:  
