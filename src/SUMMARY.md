@@ -15,4 +15,4 @@
     - [Product Check](./02_plonk/05_prod_test.md)
     - [Division Check](./02_plonk/06_division_test.md)
     - [Permutation Check](./02_plonk/07_permute_test.md)
-    - [Prescribed Permutation Check]()
+    - [Prescribed Permutation Check](./02_plonk/08_prescribed_permutation.md)
