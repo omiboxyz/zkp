@@ -18,7 +18,7 @@ However, note that some roots may be repeated. For example, in \\(f(X) = (X - 1)
 
 ## Polynomial Representation
 There are two primary ways to represent a polynomial function \\(f(X)\\) of degree \\(d\\):
-1. **Coefficients**: A degree \\(d\\) polynomial function can be represented uniquely by its \\(d+1\\) coefficients. For example, \\(f(X) = a_d X^d + a_{d-1} X^{d-1} + \dots + a_1 X + a_0.\\)
+1. **Coefficients**: A degree \\(d\\) polynomial function can be represented uniquely by its \\(d+1\\) coefficients. For example, \\(f(X) = c_0 + c_1 X + c_2 X^2 + \cdots + c_d X^d.\\)
 2. **Points**: A polynomial function of degree \\(d\\) can also be represented uniquely by \\(d+1\\) distinct points. For example, the set of points \\((0, -1), (2, 3), (-3, 8)\\) determines \\(f(X) = X^2 - 1\\) quadratic polynomial.
 
 Converting from the coefficient-based representation to point values is straightforward. Conversely, one can recover the coefficients from the point-based representation via *polynomial interpolation*. A well-known method is *Lagrange interpolation*, which finds a degree-\\(d\\) polynomial passing through \\(d+1\\) points (see [1]). The naive approach has time complexity \\(\mathrm{O}(d^2)\\), but using the *Fast Fourier Transform (FFT)* can reduce this to \\(\mathrm{O}(d \log d)\\) [1].

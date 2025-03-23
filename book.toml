@@ -7,5 +7,7 @@ title = "My notes on zkp"
 
 [output.html]
 mathjax-support = true
+smart-punctuation = true
+git-repository-url = "https://github.com/omiboxyz/zkp"
 
 [preprocessor.katex]
