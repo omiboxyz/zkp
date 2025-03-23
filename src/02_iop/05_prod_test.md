@@ -7,7 +7,10 @@ tries to convince a verifier $\mathcal{V}$, who has oracle access or commitment 
 $$
 \prod_{a \in \Omega} f(a) = 1,
 $$
-where $ \Omega \subseteq \mathbb{F}_p $ and $ |\Omega| = k $. (The definition of $ \Omega $ is provided in the previous section.)
+where $ \Omega$ is a multiplicative subgroup of $\mathbb{F}$, where$ |\Omega| = k$:
+$$
+\Omega = \{ 1,\, w,\, w^2,\, \ldots,\, w^{k-1} \},
+$$
 
 ---
 

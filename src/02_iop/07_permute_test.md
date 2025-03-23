@@ -7,7 +7,11 @@ tries to convince a verifier $ \mathcal{V} $, who holds commitments to $ f(X) $ 
 $$
 \{ f(a) \mid a \in \Omega \} \quad \text{and} \quad \{ g(a) \mid a \in \Omega \}
 $$
-are permutations of each other, where $\Omega \subseteq \mathbb{F}_p$ and $|\Omega| = k$. (The definition of $\Omega$ is provided in the previous section.)
+are permutations of each other, where $ \Omega$ is a multiplicative subgroup of $\mathbb{F}$, where$ |\Omega| = k$:
+$$
+\Omega = \{ 1,\, w,\, w^2,\, \ldots,\, w^{k-1} \},
+$$
+
 
 This task can also be considered for two sets 
 $$

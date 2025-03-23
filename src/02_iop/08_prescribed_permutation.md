@@ -10,7 +10,10 @@ $$
 tries to convince a verifier $ \mathcal{V} $, who holds commitments to $ f(X) $ (denoted by $\boxed{f}$), $ g(X) $ (denoted by $\boxed{g}$), and $\sigma(X)$ (denoted by $\boxed{\sigma}$), that
 $$
 \{ f(a) = g(\sigma(a)) \mid a \in \Omega \},
-$$, where $\Omega \subseteq \mathbb{F}$ and $|\Omega| = k$. (The definition of $\Omega$ is provided in the previous section.)
+$$, where $ \Omega$ is a multiplicative subgroup of $\mathbb{F}$, where$ |\Omega| = k$:
+$$
+\Omega = \{ 1,\, w,\, w^2,\, \ldots,\, w^{k-1} \},
+$$
 
 ---
 
