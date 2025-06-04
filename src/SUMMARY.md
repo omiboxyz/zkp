@@ -1,9 +1,7 @@
 # Summary
-
 [Introduction](./introduction.md)
 
 # Polynomial Functions
-
 - [Background](./01_poly_funcs/01_background.md)
 - [SZDL Lemma](./01_poly_funcs/02_szdl.md)
 
@@ -18,3 +16,4 @@
     - [Prescribed Permutation Check](./02_iop/08_prescribed_permutation.md)
 
 # Plonk Proof System
+- [Introducsstion](./03_plonk/01_intro.md)

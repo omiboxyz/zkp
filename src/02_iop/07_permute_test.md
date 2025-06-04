@@ -67,7 +67,7 @@ The following protocol describes a solution with logarithmic-time verification.
 
 ---
 
-### Protocol Overview
+## Protocol Overview
 
 ![Permutation Test Protocol](./diagrams/perm_test.png)
 This protocol is based on a division check. We assume that a division check protocol is already defined.
@@ -85,9 +85,9 @@ f'(a) = r - f(a) \quad \text{and} \quad g'(a) = r - g(a).
 $$
 This is done using the division check protocol. Essentially, it is a division check test, with the only difference being that the verifier holds commitments to $f$ and $g$, rather than directly to $f'$ and $g'$. However, this is not an issue because the evaluation of $f'(a)$ can be easily verified by computing $r - f(a)$.
 
+---
 
-
-### Informal Security Proof
+## Informal Security Proof
 - **Completeness**:   If the prover follows the protocol honestly and $f(X)$ and $g(X)$ are permutations of each other on $\Omega$, then the verifier will accept. This follows directly from the correctness of the division check protocol.
 
 
@@ -102,13 +102,15 @@ This is done using the division check protocol. Essentially, it is a division ch
   
    3. **Permutation check does not hold**: Suppose $\{ f(a) \mid a \in \Omega \}$ and $\{ g(a) \mid a \in \Omega \}$ are not permutations of each other. Then, by Lipton's observation,
      $$
-     \prod_{a \in \Omega} (X - f(a)) \neq \prod_{a \in \Omega} (X - g(a)).
-     $$
-     Therefore, for a random $r$, the probability that
-     $$
-     \prod_{a \in \Omega} (r - f(a)) = \prod_{a \in \Omega} (r - g(a))
-     $$
-     is at most $\frac{d}{p}$, where $d$ is the degree of $f$ (or $g$) and $p$ is the field size. Hence, except with negligible probability, a malicious prover cannot pass the test.
+     \prod_{a \in \Omega} (X - f(a)) \neq \prod_{a \in \Omega} (X - g(a)),
+     $$ where both sides are polynomials of degree $k$.
+
+    Consequently, the polynomial
+    $$
+     \prod_{a \in \Omega} (X - f(a)) - \prod_{a \in \Omega} (X - g(a))
+    $$ is non-zero and has a degree of at most $k$.
+
+    When evaluated at a random value $r$, this polynomial equals 0 with a probability of at most $\frac{k}{p}$. Thus, a malicious prover can only pass the test with negligible probability.
 
 ---
 

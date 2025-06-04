@@ -106,7 +106,7 @@ This implies $\sigma(a) = a'$ and $f(a) = g(a') = g(\sigma(a))$. By Lemma 1, the
 
 ---
 
-### Protocol Overview
+## Protocol Overview
 
 ![Prescribed Permutation Check Protocol](./diagrams/pre_perm.png)
 This protocol is based on a division check. We assume that a division check protocol is already defined.
@@ -124,9 +124,9 @@ f'(a) = r - s\sigma(a) - f(a) \quad \text{and} \quad g'(a) = r - sa - g(a).
 $$
 This is done using the division check protocol. Essentially, it is a division check test, with the only difference being that the verifier holds commitments to $f$ and $g$, rather than directly to $f'$ and $g'$. However, this is not an issue because the evaluation of $f'(a), g'(a)$ can be easily verified by computing $r - s\sigma(a) - f(a)$ and $r - sa - g(a)$.
 
+---
 
-
-### Informal Security Proof
+## Informal Security Proof
 - **Completeness**:   If the prover follows the protocol honestly, then the verifier will accept. This follows directly from the correctness of the division check protocol.
 
 
@@ -136,7 +136,7 @@ $$
 $$
 are permutations of each other. The main cases are:
     1. We assume the commitment scheme is secure, and there exist a secure division check protocol.  
-    2. **Permutation check does not hold**: Suppose the two sets are not permutations of each other. Then, by Lemma 2, $\^f(X, Y) \ne \^g(X, Y)$. Let $\^h(X, Y) = \^f(X, Y) - \^g(X, Y)$, and $\deg(h) \le max(\deg(f), \deg(g))$. For random $r$ and $s$, $\^h(r, s) = 0$ with probability $d/p$, where $d$ is the total degree of $h$.
+    2. **Permutation check does not hold**: Suppose the two sets are not permutations of each other. Then, by Lemma 2, $\^f(X, Y) \ne \^g(X, Y)$. Let $\^h(X, Y) = \^f(X, Y) - \^g(X, Y)$, and $\deg(h) \le max(\deg(f), \deg(g))$. For random $r$ and $s$, $\^h(r, s) = 0$ with probability $k/p$.
     
 *In ZKP MOOC, it is written that this probability is 2d/p, which I do not understand why !!!*
 ---

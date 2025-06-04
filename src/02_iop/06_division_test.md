@@ -90,7 +90,7 @@ Thus, to show this relationship, the prover’s goal boils down to proving:
 
 ---
 
-### Protocol Overview
+## Protocol Overview
 It is very similar to the product test. Therefore, I do not write the protocol for now.
 
 ---

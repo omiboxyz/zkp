@@ -3,29 +3,21 @@ In the Product Test, a prover $\mathcal{P}$, who knows a polynomial function
 $$
 f(X) \in \mathbb{F}^{(\leq d)}[X],
 $$
-tries to convince a verifier $\mathcal{V}$, who has oracle access or commitment to $f$ (denoted by $ \boxed{f}$), that
+tries to convince a verifier $\mathcal{V}$, who has oracle access $ \boxed{f}$, that
 $$
 \prod_{a \in \Omega} f(a) = 1,
 $$
-where $ \Omega$ is a multiplicative subgroup of $\mathbb{F}$, where$ |\Omega| = k$:
-$$
-\Omega = \{ 1,\, w,\, w^2,\, \ldots,\, w^{k-1} \},
-$$
+where $\Omega = \{1,\, w,\, w^2,\, \ldots,\, w^{k-1}\}\subset \mathbb{F}_p$ is a multiplicative subgroup of size $k$.
 
 ---
 
-A naive try by the verifier would be:
-1. **Individual Queries**: The verifier queries the oracle for each $ a \in \Omega $. This results in $ \mathcal{O}(k) $ queries and a corresponding verification time of $ \mathcal{O}(k) $.
+## Naive Approach vs. Zero Test Protocol
+1. **Naive Approach (Individual Queries)**: The verifier might query $f(a)$ for every $a\in \Omega$. This takes $\mathcal{O}(k)$ queries and verifications, which is inefficient for large $k$.  
 
-However, our goal is to achieve a constant number of queries (i.e., $ \mathcal{O}(1) $, independent of $ k $ and $ d $) and logarithmic verification time (i.e., $ \mathcal{O}(\log k) $).
-
-We use the same set $\Omega$ from the zero test, i.e.,
-$$
-\Omega = \{1, w, w^2, \dots, w^{k-1}\},
-$$
-where $w$ is a primitive $k$th root of unity in $\mathbb{F}_p$.
+2. **Product Test Gadget**: The goal is to reduce the verifier’s queries to a *constant* number ($\mathcal{O}(1)$) and its verification time to $\mathcal{O}(\log k)$. 
 
 ---
+
 ## Auxiliary Polynomial $t(X)$
 
 We define a polynomial $t(X)$ such that
@@ -90,7 +82,7 @@ Thus, to show this relationship, the prover’s goal boils down to proving:
 
 ---
 
-### Protocol Overview
+## Protocol Overview
 
 ![Product Test Protocol](./diagrams/prod_test.png)
 
@@ -132,7 +124,9 @@ Thus, to show this relationship, the prover’s goal boils down to proving:
    $$
    If both checks hold, the verifier accepts; otherwise, it rejects.
 
-### Informal Security Proof
+---
+
+## Informal Security Proof
 - **Completeness**: If the prover follows the protocol honestly and $t(wX) - t(X)\,f(wX)$
   truly vanishes on $\Omega$, then there is a valid $q(X)$ of degree at most 
   $$\deg(q) \le \deg(t) + \deg(f) - \deg(Z_{\Omega}) = (k-1) + d - k = d - 1,$$  
@@ -174,7 +168,7 @@ Thus, to show this relationship, the prover’s goal boils down to proving:
     $$
     fails, and the verifier rejects.
 
-	 Since $\deg(R) \le \deg(q) \le d - 1$, the protocol is sound, assuming $(d - 1)/p$ is negligible.
+	 Since $\deg(R) \le \deg(q) \le k - 1$, the protocol is sound, assuming $(k - 1)/p$ is negligible.
 
 ---
 
